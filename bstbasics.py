@@ -19,13 +19,13 @@ class tree:
 # print(node0.left.key)
 # print(node0.right.key)
 
-                                    #       1
-                                    #      / \
-                                    #     2   3
-                                    #    / \   \
-                                    #   4   5   6
-                                    #          / \
-                                    #         7   8  
+#       1
+#      / \
+#     2   3
+#    / \   \
+#   4   5   6
+#          / \
+#         7   8  
 
 def parse(data):
     if isinstance(data, tuple) and len(data)==3:
@@ -51,4 +51,32 @@ print(tree2.left.left.key, tree2.left.right.key, tree2.right.left, tree2.right.r
 
 print('level 3')
 print(tree2.right.right.left.key,  tree2.right.right.right.key)
+
+def display(node, space='\t', level=0):
+    if node==None:
+        print(space*level,'N')
+        return
+    elif node.left==None and node.right==None:
+        print(space*level, str(node.key))
+        return
+    
+    display(node.right, space, level+1)
+    print(space*level + str(node.key))
+    display(node.left,space, level+1)  
+
+display(tree2)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
