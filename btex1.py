@@ -1,5 +1,6 @@
 #Write a function to calculate the height/depth of a binary tree
 #Write a function to count the number of nodes in a binary tree
+#function to return the tree tuple 
 
 class tree:
     def __init__(self, key):
@@ -28,8 +29,13 @@ def num_node(node):
         return 0
     return 1 + num_node(node.left) + num_node(node.right)
 
+def tuple_tree(node):
+    if node is None:
+        return None
+    return tuple_tree(node.left), node.key, tuple_tree(node.right)
+
 tree_tuple=((4,2,5),1,((16,8,None),3,(None,11,25)))
 tree=parse(tree_tuple)
 print('tree height',tree_height(tree))
 print('no of nodes in tree ', num_node(tree))
-
+print('tree tuple ', tuple_tree(tree))
