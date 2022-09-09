@@ -1,4 +1,5 @@
-#bst operations insert, find, update, display all
+#check of balanced binary search tree
+
 class user:
     def __init__(self, username, name, email):
         self.username=username
@@ -30,19 +31,6 @@ class bst_node:
         self.value=value    #contains the details of object
         self.parent=None    #pointer the parent node for easy traversal upwards
 
-def display(node, space='\t', level=0):
-    if node==None:
-        print(space*level,'N')
-        return
-    elif node.left==None and node.right==None:
-        print(space*level, str(node.key))
-        return
-    
-    display(node.right, space, level+1)
-    print(space*level + str(node.key))
-    display(node.left,space, level+1)
-
-#inertion function
 def insert(node, key, value):
     if node is None:
         node=bst_node(key, value)
@@ -53,36 +41,19 @@ def insert(node, key, value):
         node.right=insert(node.right,key, value) 
         node.right.parent=node
     return node
-#search function
-def find(node, key):
+
+#func to check the bst is balanced or not
+
+def balance(node):
     if node is None:
-        print('node doesnt exist')
-        return
-    elif node.key==key:
-        return node
-    elif node.key>key:
-        return find(node.left,key)
-    elif node.key<key:
-        return find(node.right,key)
- 
-#function for updating
-def update(node,key, value):
-    unode=find(node, key)
-    if unode is not None:
-        unode.value=value
-    return unode
+        return True, 0
+    bal_l, h_l=balance(node.left)
+    bal_r, h_r=balance(node.right)
 
-#function for listing the objects
-def all_object(node):
-    if node is None:
-        return []
-    return all_object(node.left) + [(node.key,node.value)] + all_object(node.right)
+    bal=bal_l and bal_r and abs(h_l-h_r)<=1
+    h=max(h_l,h_r)+1
+    return bal, h
 
-#manual insertion instance
-# tree=bst_node(jadhesh.username, jadhesh)
-# tree.left=bst_node(biraj.username, biraj)
-
-#insertion usinf function
 tree=insert(None, jadhesh.username, jadhesh)
 insert(tree, biraj.username, biraj)
 insert(tree, sonaksh.username, sonaksh)
@@ -90,13 +61,5 @@ insert(tree, aakash.username, aakash)
 insert(tree, hemanth.username, hemanth)
 insert(tree, siddhant.username, siddhant)
 insert(tree, vishal.username, siddhant)
-node = find(tree, 'hemanth')
-print(node.value)
-unode=update(tree,'biraj', user('biraj','biraj chhaterjee','biraj@hotmail'))
-print(unode.key)
-print(unode.value.name)
 
-print(all_object(tree))
-
-
-
+print(balance(tree))
