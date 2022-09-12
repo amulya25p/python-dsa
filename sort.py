@@ -49,12 +49,13 @@ def mergesort(nums):
     return sortnums
 
 def partition(nums, lo=0, hi=None):
-    hi=len(nums)-1
+    if hi is None:
+        hi=len(nums)-1
     l,r=lo,hi-1
-    while l<r:
+    while r>l:
         if nums[l]<=nums[hi]:
             l+=1
-        elif nms[r]>=nums[hi]:
+        elif nums[r]>nums[hi]:
             r-=1
         else:
             nums[l],nums[r]=nums[r],nums[l]
@@ -64,8 +65,10 @@ def partition(nums, lo=0, hi=None):
     else:
         return hi
 
-def quicksort(nums, lo=0, hi=None):
-    hi=len(nums)-1
+def quicksort(nums,lo=0,hi=None):
+    if hi is None:
+        nums=list(nums)
+        hi=len(nums)-1
     while lo<hi:
         pivot=partition(nums, lo, hi)
         quicksort(nums, lo, pivot-1)
@@ -75,5 +78,5 @@ def quicksort(nums, lo=0, hi=None):
 
 mylist=[5, -12, 2, 6, 1, 23, 7, 7, -12, 6, 12, 1, -243, 1, 0]
 print(mylist)
-print(mergesort(mylist))
+print(quicksort(mylist))
 
